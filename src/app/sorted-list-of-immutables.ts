@@ -191,7 +191,6 @@ export class SortedListOfImmutables {
             }
         }
         return itemInList;
-
     }
 
     /**
@@ -224,7 +223,6 @@ export class SortedListOfImmutables {
             }
         }
         return itemInList;
-
     }
 
     /*
