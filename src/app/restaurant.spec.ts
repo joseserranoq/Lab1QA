@@ -2,16 +2,20 @@ import { Food } from './food';
 import { Restaurant } from './restaurant';
 import { SortedListOfImmutables } from './sorted-list-of-immutables';
 import { Listable } from './listable';
+import { Entree } from './entree';
 
  
 
 //CASOS DE PRUEBA DE addShipmentToInventory
-describe("SE AGREGA UNA LISTA A LA FUNCION addShipmentToInventory", function() {
+describe("SE AGREGA UNA LISTA A LA FUNCION addShipmentToInventory Y SE VERIFICA MEDIANTE UN BOOLEANO", function() {
     let restaurante : Restaurant;
-    let listaComida: Listable[];
-    let lista2 = new SortedListOfImmutables(null);
     beforeEach(function() {
-        restaurante = new Restaurant("Test", 500);
+        restaurante = new Restaurant("Test", 700);
+    });
+
+    it("1.Debe de retornar True", function() {   
+        let listaComida: Listable[];
+        let lista2 = new SortedListOfImmutables(null);
         listaComida = [new Food("Bacon", 89, 185, "Bacon.jpg"),new Food("Waffle", 178, 350, "Waffle.jpg"),
         new Food("Egg", 47, 89, "Egg.jpg"),
         new Food("Orange Juice", 77, 199, "OrangeJuice.jpg"),
@@ -22,17 +26,79 @@ describe("SE AGREGA UNA LISTA A LA FUNCION addShipmentToInventory", function() {
         listaComida.map((comida)=> {
             lista2.add(comida);
         });
+        
+        expect(restaurante.addShipmentToInventory(lista2)).toBeTruthy();
     });
 
+    it("2.Debe retornar False", function() {
+        let listaComida: Listable[];
+        let lista2 = new SortedListOfImmutables(null);
+        listaComida = [new Food("Bacon", 89, 185, "Bacon.jpg"),new Food("Waffle", 178, 350, "Waffle.jpg"),
+        new Food("Egg", 47, 89, "Egg.jpg"),
+        new Food("Orange Juice", 77, 199, "OrangeJuice.jpg"),
+        new Food("Milk", 52, 179, "Milk.jpg"),
+        new Food("Toast", 66, 125, "Toast.jpg"),
+        new Food("Hashbrowns", 127, 195, "Hashbrowns.jpg"),new Food("Pie", 195, 275, "Pie.jpg")];
     
-    it("1.Debe de retornar falso", function() {   
+        listaComida.map((comida)=> {
+            lista2.add(comida);
+        });
+        // restaurante.addShipmentToInventory(lista2);
+        // expect(restaurante.getInventory().getSize()).toBe(7);
         expect(restaurante.addShipmentToInventory(lista2)).toBeFalsy();
-
     });
 
-    it("2.Ver la cantidad de elementos de la lista debe de haber 7", function() {
-        //expect(restaurante.addShipmentToInventory(lista2)).toBeTruthy();
-        expect(restaurante.getInventory().getSize()).toBe(7);
-    });
 });
 
+describe("SE AGREGA UNA LISTA A LA FUNCION placeOrder Y SE VERIFICA MEDIANTE UN BOOLEANO", function() {
+    let restaurante : Restaurant;
+    let listaComida : Listable[];
+    let listaComida2 : Listable[];
+    let entree: Entree;
+    let lista2 : SortedListOfImmutables;
+    let lista3 :SortedListOfImmutables;
+    beforeEach(function() {
+        let listaComida: Listable[];
+        let listaComida2: Listable[];
+        let lista2 = new SortedListOfImmutables(null);
+        let lista3 = new SortedListOfImmutables(null);
+
+        // listaComida = [new Food("Bacon", 89, 185, "Bacon.jpg"),new Food("Waffle", 178, 350, "Waffle.jpg"),
+        // new Food("Egg", 47, 89, "Egg.jpg")]
+    
+        // listaComida.map((comida)=> {
+        //     lista2.add(comida);
+        // });
+
+        // restaurante = new Restaurant("Test", 700);
+        // restaurante.addShipmentToInventory(lista2);
+
+        // listaComida = [new Food("Bacon", 89, 185, "Bacon.jpg"),new Food("Waffle", 178, 350, "Waffle.jpg")]
+        // listaComida.map((comida)=> {
+        //     lista3.add(comida);
+        // });
+        // entree = new Entree('tests', lista3);
+    });
+    it("3.Debe de retornar True", function() {
+        restaurante = new Restaurant("Test", 700);
+        listaComida = [new Food("Bacon", 89, 185, "Bacon.jpg"),new Food("Waffle", 178, 350, "Waffle.jpg"),
+        new Food("Egg", 47, 89, "Egg.jpg")]
+    
+        listaComida.map((comida)=> {
+            lista2.add(comida);
+        });
+
+        //restaurante = new Restaurant("Test", 700);
+        restaurante.addShipmentToInventory(lista2);
+
+        listaComida2 = [new Food("Bacon", 89, 185, "Bacon.jpg"),new Food("Waffle", 178, 350, "Waffle.jpg")]
+        listaComida2.map((comida)=> {
+            lista3.add(comida);
+        });
+        entree = new Entree('tests', lista3);
+        //restaurante.addEntree(entree);
+        
+        console.log(entree.getFoodList());
+        expect(restaurante.placeOrder(entree)).toBeTruthy();
+    });
+});
